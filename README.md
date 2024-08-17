@@ -33,7 +33,7 @@ href="https://github.com/jvrDvos/jvrDvos">
 Clone the project
 
 ```bash
-  git clone https://github.com/jvrDvos/Phyton3.10React.js18CRUDSearchStock
+  git clone https://github.com/jvrDvos/PhytonReact.js
 ```
 
 Go to the project directory
@@ -42,7 +42,7 @@ Go to the project directory
 For the backend
 ```bash
   open terminal
-  cd api..
+  cd folder api..
   py run.py
 
 
@@ -53,6 +53,7 @@ Navagate to the backend and frontend folder, install dependencies and start the 
 ```bash
   cd front-en...
   open with ide
+  npm install
   npm start
 ```
 

@@ -1,14 +1,13 @@
 
-import './App.css';
 import axios from './axios.js';
 
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCubes, faFilePen, faTrashCan} from '@fortawesome/free-solid-svg-icons';
 
-import "./form.css";
-import "./product.css";
+import './css/App.css';
+import "./css/form.css";
+import "./css/product.css";
 
 
 const App = () => {
@@ -17,7 +16,6 @@ const App = () => {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [stock, setStock] = useState('');  
-  const [errorMessage, setErrorMessage] = useState('');
   
   const [articleCount, setArticleCount] = useState([]);
   const [article, setArticle] = useState([]);
@@ -29,30 +27,31 @@ const App = () => {
 
 
   //  Show Product
-  const fetchProduct = async () => {
+const fetchProduct = useCallback(async () => {
+  try {
 
-    try {
-  
-      const params = new URLSearchParams();
-      params.set('name', searchQuery.name);
+    const params = new URLSearchParams();
+    params.set('name', searchQuery.name);
 
-      const response = await axios.get('articles', { params });
-      // console.log(response);
-      setArticleCount(response.data.articleCount);
-      setArticle(response.data.article);
+    //GET a la API
+    const response = await axios.get('articles', { params });
+    // console.log(response);
 
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+    // Update changer status
+    setArticleCount(response.data.articleCount);
+    setArticle(response.data.article);
+  } catch (error) {
+    // Control the error
+    console.error('Error:', error);
+  }
+}, [searchQuery.name]);
   
   useEffect(() => {
     if (isSearching || (searchQuery.name === '')) {
       setIsSearching(false);
-      fetchProduct()
+      fetchProduct();
     }
-  }, [isSearching, searchQuery]);
-  
+  }, [isSearching, searchQuery, fetchProduct]);
   
   const handleClearSearch = (e) => {
     setSearchQuery({ name: ''});
@@ -139,12 +138,11 @@ const App = () => {
   
   const deleteProductModal = (deleteProduct) => {
     setDeleteProduct(deleteProduct);
-    console.log("Product Id:", deleteProduct);
+  //  console.log("Product Id:", deleteProduct);
   };
   
   const deleteProductClose = () => {
     setDeleteProduct(null);
-    setErrorMessage(null);
   };
   
 
@@ -160,7 +158,7 @@ const App = () => {
         }
       });
 
-      console.log(response.data);
+    //  console.log(response.data);
   
       if (response.status === 200) {
         deleteProductClose();
@@ -176,20 +174,18 @@ const App = () => {
 
   const inserForm = () => {
     setInsert(!insert);
-    setName(null);
-    setPrice(null);
-    setDescription(null);
-    setStock(null);
-    setErrorMessage(null);
+    setName('');
+    setPrice('');
+    setDescription('');
+    setStock('');
   };
 
   const inserFormClose = () => {
     setInsert(null);
-    setName(null);
-    setPrice(null);
-    setDescription(null);
-    setStock(null);
-    setErrorMessage(null);
+    setName('');
+    setPrice('');
+    setDescription('');
+    setStock('');
   };
 
   const productCreate = async (e) => {
@@ -206,7 +202,7 @@ const App = () => {
         'Content-Type': 'application/json'
       }
     });
-    console.log(response);
+  //  console.log(response);
     
     if (response.status === 200) {
       inserFormClose();
@@ -221,7 +217,7 @@ const App = () => {
     <div>
 
     <div className='table-div'>
-    <h1>CRUD Search Pagination</h1>
+    <h1>CRUD Search Stock</h1>
     <h3>Python 3.10 Flask (Route/Api) and React.js 18</h3>
 
     <div className='add'>
@@ -306,7 +302,6 @@ const App = () => {
       <div>
         <form className="form-horztal">
           <div className="form-title">Edit Product</div> 
-          <div className="form-error">{errorMessage}</div>
           <div>
             <div className="subtitle">Name</div>
             <input
@@ -452,8 +447,7 @@ const App = () => {
     <div className="row">
       <div>
         <form className="form-horztal">
-          <div className="form-title">New Product</div> 
-          <div className="form-error">{errorMessage}</div>           
+          <div className="form-title">New Product</div>            
           <div>
           <div className="subtitle">Name</div>
             <input

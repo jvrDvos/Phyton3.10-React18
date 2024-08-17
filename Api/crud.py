@@ -88,9 +88,6 @@ def create_article():
         updated_at = datetime.now()
         created_at = datetime.now()
 
-        # if not name is None:
-        #    return jsonify({'message': 'Error: name is a required field'}), 400
-
         sql = "INSERT INTO articles (title, details, total, cost, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s)"
         values = (name, description, stock, price, created_at, updated_at)
         cursor.execute(sql, values)
@@ -125,9 +122,6 @@ def update_article():
         price = data.get('price', None)
         stock = data.get('stock', None)
         updated_at = datetime.now()
-
-        if not id or not name:
-            return jsonify({'message': 'Error: Name, price and stock are required fields'}), 400
 
         sql = "UPDATE articles SET title=%s, details=%s, total=%s, cost=%s, updated_at=%s WHERE id=%s"
         values = (name, description, stock, price, updated_at, id)
