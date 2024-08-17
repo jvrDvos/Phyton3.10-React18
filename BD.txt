@@ -1,0 +1,11 @@
+  Base de datos= store
+  Table = articles
+   
+   structure table; 
+   id  primary key   AUTO_INCREMENT
+   title  varchar(255)   utf8mb4_unicode_ci	
+   details  varchar(255)   utf8mb4_unicode_ci
+   total  varchar(255)   utf8mb4_unicode_ci
+   cost  varchar(255)   utf8mb4_unicode_ci
+   created_at  timestamp
+   updated_at	timestamp
