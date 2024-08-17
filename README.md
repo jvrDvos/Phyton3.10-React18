@@ -15,7 +15,7 @@ Back-End python 3.10;
 
 Front-End React.js 18; 
 - Functions cread, read, update and delete produtcs.
-- Consume and response Api Rest.
+- Api Rest.
 - See total of stock.
 - Pagination.
 
