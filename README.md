@@ -74,4 +74,7 @@ To deploy this project run
 ## Author
 
 - [@jvrDvos](https://github.com/jvrDvos)
+
+*.js linguist-languaje= Javascript
+*.py linguist-languaje= Phyton
 	
