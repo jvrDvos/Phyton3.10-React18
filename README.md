@@ -41,6 +41,8 @@ Go to the project directory
 
 For the backend
 ```bash
+  start Xampp
+  create BD
   open terminal
   cd folder api..
   py run.py
